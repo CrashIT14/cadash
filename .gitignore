@@ -1,0 +1,8 @@
+*.iml
+build/
+Thumbs.db
+*.class
+.idea/
+desktop.ini
+.DS_Store
+
