@@ -41,7 +41,7 @@
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         </activity>
         <activity
-            android:name=".View.ModifyObjectActivity"
+            android:name=".view.ModifyObjectActivity"
             android:label="@string/title_activity_modify_object" >
 
         </activity>
