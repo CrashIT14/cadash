@@ -14,9 +14,26 @@ public class ComController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Greeting(counter.incrementAndGet(),
-                String.format(template, name));
+    @RequestMapping("/register")
+    public boolean register(@RequestParam(value="name", defaultValue="World") String name) {
+        return true;
+    }
+
+    @RequestMapping("/newDebt")
+    public boolean newDebt() {
+
+        return true;
+    }
+
+    @RequestMapping("/sync")
+    public boolean sync() {
+
+        return true;
+    }
+
+    @RequestMapping("/remove")
+    public boolean remove() {
+
+        return true;
     }
 }

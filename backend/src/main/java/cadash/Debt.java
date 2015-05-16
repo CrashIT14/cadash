@@ -1,5 +1,7 @@
 package cadash;
 
+import javax.jws.soap.SOAPBinding;
+
 /**
  * Created by Hampus Dahlin on 2015-05-16.
  */
@@ -24,6 +26,16 @@ public class Debt {
         }else{// u2 owes u1
             this.amount -= other.amount;
         }
+    }
+
+    public boolean isCombineable(Debt other) {
+        if(!this.getU1().equals(other.getU1()) && !this.getU1().equals(other.getU2())){
+            return false;
+        }
+        if (!this.getU2().equals(other.getU1()) && !this.getU2().equals(other.getU2())){
+            return false;
+        }
+        return true;
     }
 
     public User getU1() {
