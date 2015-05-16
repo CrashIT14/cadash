@@ -3,6 +3,8 @@ package se.cadash.cadash.model;
 
 import android.content.Context;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.List;
 
 /**
@@ -10,9 +12,7 @@ import java.util.List;
  */
 public interface IModel {
     List<Contact> getContacts();
-    void addSignInListener(SignInListener listener);
-    void signIn();
-    void initialize();
-    void connect();
-    void disconnect();
+    GoogleApiClient getGoogleApiClient();
+    void setGoogleApiClient(GoogleApiClient client);
+    String getUserEmail();
 }

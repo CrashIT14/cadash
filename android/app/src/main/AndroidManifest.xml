@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="se.cadash.cadash" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,13 +25,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.ListViewActivity"
+            android:name=".view.ListViewActivity"
             android:label="@string/title_activity_list_view" >
         </activity>
     </application>
-
-    <uses-permission android:name="ANDROID.PERMISSION.INTERNET" />
-    <uses-permission android:name="ANDROID.PERMISSION.GET_ACCOUNTS" />
-    <uses-permission android:name="ANDROID.PERMISSION.USE_CREDENTIALS" />
 
 </manifest>

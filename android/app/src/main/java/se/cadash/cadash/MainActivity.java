@@ -1,35 +1,49 @@
 package se.cadash.cadash;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
-import se.cadash.cadash.View.ListViewActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.Plus;
+
 import se.cadash.cadash.model.IModel;
 import se.cadash.cadash.model.Model;
-import se.cadash.cadash.model.SignInListener;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SignInListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private IModel model = Model.getInstance();
+    /* Request code used to invoke sign in user interactions. */
+    private static final int RC_SIGN_IN = 0;
+    private boolean loginIntentInProgress = false;
+    private boolean mSignInClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        GoogleApiClient googleApi = model.getGoogleApiClient();
+
+        googleApi = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Plus.API)
+                .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .build();
+
+        model.setGoogleApiClient(googleApi);
+
         // Initialize the UI components
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-
-
-        model.initialize();
-        model.addSignInListener(this);
 
     }
 
@@ -58,32 +72,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        model.connect();
-
-
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        model.disconnect();
+        model.getGoogleApiClient().disconnect();
     }
 
     @Override
     public void onClick(View view) {
-        model.signIn();
-
+        if (view.getId() == R.id.sign_in_button && !model.getGoogleApiClient().isConnecting()) {
+            mSignInClicked = true;
+            model.getGoogleApiClient().connect();
+        }
     }
 
     @Override
-    public void signInCompleted() {
-        Intent intent = new Intent(getBaseContext(), ListViewActivity.class);
-        startActivity(intent);
-        finish();
+    public void onConnected(Bundle bundle) {
+        mSignInClicked = false;
+        Toast.makeText(this, "User: " + Plus.AccountApi.getAccountName(model.getGoogleApiClient()), Toast.LENGTH_LONG).show();
+
+        /**
+         * Intent intent = new Intent(getBaseContext(), ListViewActivity.class);
+         startActivity(intent);
+         finish();
+         */
     }
 
     @Override
-    public void signInFailed() {
+    public void onConnectionSuspended(int i) {
+        model.getGoogleApiClient().connect();
+    }
 
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (!loginIntentInProgress && connectionResult.hasResolution()) {
+            try {
+                loginIntentInProgress = true;
+                connectionResult.startResolutionForResult(this, RC_SIGN_IN);
+            } catch (IntentSender.SendIntentException e) {
+                // The intent was canceled before it was sent.  Return to the default
+                // state and attempt to connect to get an updated ConnectionResult.
+                loginIntentInProgress = false;
+                model.getGoogleApiClient().connect();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        if (requestCode == RC_SIGN_IN) {
+            if (responseCode != RESULT_OK) {
+                mSignInClicked = false;
+            }
+
+            loginIntentInProgress = false;
+
+            if (!model.getGoogleApiClient().isConnected()) {
+                model.getGoogleApiClient().reconnect();
+            }
+        }
     }
 }
