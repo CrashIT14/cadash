@@ -8,17 +8,13 @@ import android.media.Image;
 public class Contact {
     private String firstName;
     private String lastName;
-    private Image photo;
-    private Debt debt = new Debt();
+    private String email;
+    private int debt;
 
-    public Contact(String firstName, String lastName, Image photo) {
+    public Contact(String firstName, String lastName, String email, int debt) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.photo = photo;
-    }
-
-    public Contact(String firstName, String lastName, Image photo, Debt debt) {
-        this(firstName, lastName, photo);
+        this.email = email;
         this.debt = debt;
     }
 
@@ -30,11 +26,11 @@ public class Contact {
         return lastName;
     }
 
-    public Image getPhoto() {
-        return photo;
+    public String getEmail() {
+        return email;
     }
 
-    public Debt getDebt() {
+    public int getDebt() {
         return this.debt;
     }
 }

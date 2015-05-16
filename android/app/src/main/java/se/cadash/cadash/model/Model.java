@@ -36,9 +36,8 @@ public class Model implements IModel {
         return instance;
     }
 
-    @Override
-    public List<Contact> getContacts() {
-        return null;
+    public void getContacts(BackendSyncListener listener) {
+        new BackendConnetion(BackendConnetion.SERVER_REQUEST.SYNC).sync(listener, getUserEmail());
     }
 
     @Override
