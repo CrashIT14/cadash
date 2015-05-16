@@ -1,6 +1,8 @@
 package se.cadash.cadash.model;
 
 
+import android.content.Context;
+
 import java.util.List;
 
 /**
