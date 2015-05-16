@@ -1,5 +1,7 @@
 package se.cadash.cadash.model;
 
+import android.media.Image;
+
 /**
  * @author Alexander Håkansson
  */
@@ -8,6 +10,7 @@ public class Contact {
     private String lastName;
     private String id;
     private int debt;
+    private String imageUrl = null;
 
     public Contact(String firstName, String lastName, String id, int debt) {
         this.firstName = firstName;
@@ -30,5 +33,17 @@ public class Contact {
 
     public int getDebt() {
         return this.debt;
+    }
+
+    public void setDebt(int amount) {
+        this.debt = amount;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 }
