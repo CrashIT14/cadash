@@ -2,12 +2,13 @@ package se.cadash.cadash.View;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import se.cadash.cadash.R;
 
-public class ModifyObjectActivity extends ActionBarActivity {
+public class ModifyObjectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
