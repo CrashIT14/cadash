@@ -72,6 +72,12 @@ public class BackendConnetion {
         new BackendConnect().execute(param);
     }
 
+    public void remove(String from, String to) {
+        this.requestType = SERVER_REQUEST.REMOVE;
+        String param = "?user1="+from+"&user2";
+        new BackendConnect().execute(param);
+    }
+
 
     public BackendConnetion(SERVER_REQUEST requestType) {
         this.requestType = requestType;
@@ -88,6 +94,7 @@ public class BackendConnetion {
         protected String doInBackground(String... strings) {
 
             InputStream is = null;
+            String returnString = "done";
 
             try {
                 URL url = new URL(BACKEND_URL + requestType.getName() + strings[0]);
@@ -118,16 +125,21 @@ public class BackendConnetion {
                     String result = stringBuilder.toString();
 
                     if (result.trim().toLowerCase().equals("true")) {
-                        return "done";
+                        returnString = "done";
                     } else {
-                        return result;
+                        returnString = result;
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            return "done";
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return returnString;
         }
 
         @Override
