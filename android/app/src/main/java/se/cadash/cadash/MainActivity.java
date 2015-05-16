@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
-        Toast.makeText(this, "User: " + Plus.AccountApi.getAccountName(model.getGoogleApiClient()), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "User: " + model.getUserEmail(), Toast.LENGTH_LONG).show();
 
         /**
          * Intent intent = new Intent(getBaseContext(), ListViewActivity.class);

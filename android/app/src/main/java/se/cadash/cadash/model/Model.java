@@ -53,6 +53,10 @@ public class Model implements IModel {
 
     @Override
     public String getUserEmail() {
-        return null;
+        if (googleApiClient != null) {
+            return Plus.AccountApi.getAccountName(googleApiClient);
+        } else {
+            return "No user";
+        }
     }
 }
