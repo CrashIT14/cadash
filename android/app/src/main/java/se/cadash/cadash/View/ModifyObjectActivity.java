@@ -1,4 +1,4 @@
-package se.cadash.cadash.View;
+package se.cadash.cadash.view;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
