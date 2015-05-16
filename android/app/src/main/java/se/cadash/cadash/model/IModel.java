@@ -11,7 +11,7 @@ import java.util.List;
  * @author Alexander Håkansson
  */
 public interface IModel {
-    List<Contact> getContacts();
+    void getContacts(BackendSyncListener listener);
     GoogleApiClient getGoogleApiClient();
     void setGoogleApiClient(GoogleApiClient client);
     String getUserEmail();
