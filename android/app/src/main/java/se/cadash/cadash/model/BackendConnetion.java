@@ -149,8 +149,10 @@ public class BackendConnetion {
                         String u1 = bleh[0];
                         String u2 = bleh[1];
                         int amount = Integer.parseInt(bleh[2]);
-                        Contact newContact = new Contact("First", "Last", u1, amount);
-                        contacts.add(newContact);
+                        Contact contact = Model.getInstance().getContact(u2);
+                        if (contact != null) {
+                            contact.setDebt(amount);
+                        }
                     }
                     for (Contact c : contacts) {
                         System.out.println(c.getId() + " | " + c.getDebt());
