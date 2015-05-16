@@ -8,6 +8,7 @@ import java.util.List;
  */
 public interface IModel {
     List<Contact> getContacts();
+    void addSignInListener(SignInListener listener);
     void signIn();
     void initialize();
     void connect();
