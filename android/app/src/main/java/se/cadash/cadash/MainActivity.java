@@ -2,6 +2,7 @@ package se.cadash.cadash;
 
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import com.google.android.gms.plus.Plus;
 
 import se.cadash.cadash.model.IModel;
 import se.cadash.cadash.model.Model;
+import se.cadash.cadash.view.ListViewActivity;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
@@ -26,12 +28,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean loginIntentInProgress = false;
     private boolean mSignInClicked = false;
 
+    public static final String PREFS_NAME = "FirstLaunchPrefs";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         GoogleApiClient googleApi = model.getGoogleApiClient();
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        boolean firstTime = settings.getBoolean("firstTime", true);
 
         googleApi = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -44,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Initialize the UI components
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+        if (!firstTime) {
+            model.getGoogleApiClient().connect();
+        }
 
     }
 
@@ -92,12 +103,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
         Toast.makeText(this, "User: " + model.getUserEmail(), Toast.LENGTH_LONG).show();
-
-        /**
-         * Intent intent = new Intent(getBaseContext(), ListViewActivity.class);
-         startActivity(intent);
-         finish();
-         */
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("firstTime", false);
+        editor.commit();
+        goToNextScreen();
     }
 
     @Override
@@ -118,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 model.getGoogleApiClient().connect();
             }
         }
+    }
+
+    private void goToNextScreen() {
+        Intent intent = new Intent(getBaseContext(), ListViewActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
