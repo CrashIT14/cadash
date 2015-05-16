@@ -15,24 +15,25 @@ public class ComController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/register")
-    public boolean register(@RequestParam(value="name", defaultValue="World") String name) {
+    public boolean register(@RequestParam(value="uid", defaultValue="NULL") String uid, @RequestParam(value="email") String email) {
+
         return true;
     }
 
     @RequestMapping("/newDebt")
-    public boolean newDebt() {
+    public boolean newDebt(@RequestParam(value = "amount", defaultValue = 0) int amount, @RequestParam(value = "user1") String u1, @RequestParam(value = "user2") String u2) {
 
         return true;
     }
 
     @RequestMapping("/sync")
-    public boolean sync() {
+    public boolean sync(@RequestParam(value = "user") String user) {
 
         return true;
     }
 
     @RequestMapping("/remove")
-    public boolean remove() {
+    public boolean remove(@RequestParam(value = "user1") String u1, @RequestParam(value = "user2") String u2) {
 
         return true;
     }
