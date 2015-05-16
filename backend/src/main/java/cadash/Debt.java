@@ -68,7 +68,6 @@ public class Debt {
 
         Debt debt = (Debt) o;
 
-        if (amount != debt.amount) return false;
         if (u1 != null ? !u1.equals(debt.u1) : debt.u1 != null) return false;
         return !(u2 != null ? !u2.equals(debt.u2) : debt.u2 != null);
     }

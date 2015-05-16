@@ -17,6 +17,7 @@ public class DataModel {
     public void addDebt(Debt debt){
         if(!debts.contains(debt)) {
             this.debts.add(debt);
+            System.out.println("huehuehuehue");
         }else{
             this.debts.get(this.debts.indexOf(debt)).combinewith(debt);
         }
@@ -42,5 +43,10 @@ public class DataModel {
         return userDebts;
     }
 
+    /*
+    private void minimizeDebts(){
+        for(Debt d : debts)
+    }
+    */
 
 }

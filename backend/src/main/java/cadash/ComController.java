@@ -25,7 +25,7 @@ public class ComController {
     }
 
     @RequestMapping("/register")
-    public boolean register(@RequestParam(value="email") String email) {
+    public boolean register(@RequestParam(value="email") String email, @RequestParam(value = "uid", defaultValue="") String uid) {
         User toReg = new User(email);
         model.register(toReg);
         //@TODO Send tickle to users
@@ -62,31 +62,18 @@ public class ComController {
 
 
     private void tickle(User user){
-        String message = "Content-Type:application/json\n" +
-                "Authorization:key=AIzaSyB-1uEai2WiUapxCs2Q0GZYzPu7Udno5aA\n" +
-                "\n" +
-                "{\n" +
-                "  \"registration_ids\" : [\"APA91bHun4MxP5egoKMwt2KZFBaFUH-1RYqx...\"],\n" +
-                "  \"data\" : {\n" +
-                "    ...\n" +
-                "  },\n" +
-                "}";
+        String message = "";
 
         try {
             URL url = new URL("https://android.googleapis.com/gcm/send");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Accept", "application/xml");
             conn.setDoInput(true);
-            OutputStream out = conn.getOutputStream();
-            ObjectOutputStream oout = new ObjectOutputStream(out);
-            oout.writeObject("tickletickle");
-            System.out.println(conn.getResponseCode());
+            ObjectOutputStream out = new ObjectOutputStream(conn.getOutputStream());
+            out.writeObject(apikey+"");
         } catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 
 
