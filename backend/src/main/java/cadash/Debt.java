@@ -1,7 +1,5 @@
 package cadash;
 
-import javax.jws.soap.SOAPBinding;
-
 /**
  * Created by Hampus Dahlin on 2015-05-16.
  */
@@ -21,7 +19,7 @@ public class Debt {
      * @param other
      */
     public void combinewith(Debt other) {
-        if((amount > 0 && this.getU1().equals(other.getU1())) || amount < 0 && this.getU1().equals(other.getU2())){ // u1 owes u2
+        if((amount > 0 && this.getU1().equals(other.getU1()))){ // u1 owes u2
             this.amount += other.amount;
         }else{// u2 owes u1
             this.amount -= other.amount;

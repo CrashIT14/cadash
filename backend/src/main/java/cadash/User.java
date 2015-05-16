@@ -1,9 +1,7 @@
 package cadash;
 
-import java.util.ArrayList;
-
 /**
- * Created by parke_000 on 2015-05-16.
+ * Created by Hampus Dahlin on 2015-05-16.
  */
 public class User {
     private final String email;
