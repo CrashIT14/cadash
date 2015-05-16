@@ -1,20 +1,18 @@
 package se.cadash.cadash.model;
 
-import android.media.Image;
-
 /**
  * @author Alexander Håkansson
  */
 public class Contact {
     private String firstName;
     private String lastName;
-    private String email;
+    private String id;
     private int debt;
 
-    public Contact(String firstName, String lastName, String email, int debt) {
+    public Contact(String firstName, String lastName, String id, int debt) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.id = id;
         this.debt = debt;
     }
 
@@ -26,8 +24,8 @@ public class Contact {
         return lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getId() {
+        return id;
     }
 
     public int getDebt() {
