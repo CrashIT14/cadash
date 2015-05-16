@@ -45,9 +45,15 @@ public class ComController {
     }
 
     @RequestMapping("/sync")
-    public ArrayList<Debt> sync(@RequestParam(value = "user") String user) {
+    public String sync(@RequestParam(value = "user") String user) {
         User u = new User(user);
-        return model.getDebts(u);
+        StringBuilder b = new StringBuilder();
+
+        for(Debt d : model.getDebts(u)){
+            b.append(d.getU1().toString()+":"+d.getU2().toString()+":"+d.getAmount()+";");
+        }
+
+        return b.toString();
     }
 
     @RequestMapping("/remove")

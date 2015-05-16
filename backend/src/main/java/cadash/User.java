@@ -21,6 +21,11 @@ public class User {
     }
 
     @Override
+    public String toString() {
+        return this.getEmail();
+    }
+
+    @Override
     public int hashCode() {
         return email.hashCode();
     }
