@@ -18,19 +18,17 @@ public class Model implements IModel,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static IModel instance = null;
-    private Context context;
+    private static Context context;
     private GoogleApiClient googleApiClient;
 
     public Model() {
-        googleApiClient = new GoogleApiClient.Builder(context)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Plus.API)
-                .addScope(new Scope("profile"))
-                .build();
+
     }
 
-    public static IModel getInstance() {
+    public static IModel getInstance(Context context) {
+
+        Model.context = context;
+
         if (instance == null) {
             instance = new Model();
         }
@@ -65,22 +63,22 @@ public class Model implements IModel,
 
     @Override
     public void initialize() {
-
+        googleApiClient = new GoogleApiClient.Builder(context)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Plus.API)
+                .addScope(new Scope("profile"))
+                .build();
     }
 
     @Override
     public void connect() {
-
+        googleApiClient.connect();
     }
 
     @Override
     public void disconnect() {
-
-    }
-
-    @Override
-    public void setContext(Context context) {
-        this.context = context;
+        googleApiClient.disconnect();
     }
 
     @Override

@@ -15,5 +15,4 @@ public interface IModel {
     void initialize();
     void connect();
     void disconnect();
-    void setContext(Context context);
 }
