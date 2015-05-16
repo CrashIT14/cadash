@@ -6,20 +6,10 @@ import java.util.ArrayList;
  * Created by parke_000 on 2015-05-16.
  */
 public class User {
-    private String uid;
     private final String email;
 
     public User(String email) {
         this.email = email;
-    }
-
-    public User(String email, String uid) {
-        this.email = email;
-        this.uid = uid;
-    }
-
-    public String getUid() {
-        return uid;
     }
 
     @Override
@@ -29,19 +19,15 @@ public class User {
 
         User user = (User) o;
 
-        return !(uid != null ? !uid.equals(user.uid) : user.uid != null);
-
+        return email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return uid != null ? uid.hashCode() : 0;
+        return email.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid='" + uid + '\'' +
-                '}';
+    public String getEmail() {
+        return email;
     }
 }

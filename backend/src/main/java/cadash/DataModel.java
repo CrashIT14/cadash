@@ -6,8 +6,9 @@ import java.util.ArrayList;
  * Created by parke_000 on 2015-05-16.
  */
 public class DataModel {
-    ArrayList<Debt> debts;
-    ArrayList<User> users;
+    private ArrayList<Debt> debts;
+    private ArrayList<User> users;
+
     public DataModel() {
         this.debts = new ArrayList<Debt>();
         this.users = new ArrayList<User>();
@@ -19,5 +20,13 @@ public class DataModel {
 
     public void register(User user){
         this.users.add(user);
+    }
+
+    public ArrayList<Debt> getDebts() {
+        return debts;
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
     }
 }

@@ -11,17 +11,17 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @RestController
 public class ComController {
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+
 
     @RequestMapping("/register")
-    public boolean register(@RequestParam(value="uid", defaultValue="NULL") String uid, @RequestParam(value="email") String email) {
+    public boolean register(@RequestParam(value="email") String email) {
+        User toReg = new User(email);
 
         return true;
     }
 
     @RequestMapping("/newDebt")
-    public boolean newDebt(@RequestParam(value = "amount", defaultValue = 0) int amount, @RequestParam(value = "user1") String u1, @RequestParam(value = "user2") String u2) {
+    public boolean newDebt(@RequestParam(value = "amount", defaultValue = "0") int amount, @RequestParam(value = "user1") String u1, @RequestParam(value = "user2") String u2) {
 
         return true;
     }
