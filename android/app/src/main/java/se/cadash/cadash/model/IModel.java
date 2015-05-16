@@ -1,6 +1,8 @@
 package se.cadash.cadash.model;
 
 
+import android.content.Context;
+
 import java.util.List;
 
 /**
@@ -13,4 +15,5 @@ public interface IModel {
     void initialize();
     void connect();
     void disconnect();
+    void setContext(Context context);
 }
