@@ -4,6 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -13,15 +18,17 @@ import java.util.ArrayList;
 @RestController
 public class ComController {
     private DataModel model = new DataModel();
+    private String apikey = "AIzaSyABIqk3govw_RXzCjUkhzWDZk4Xdi-e3yM";
 
     public ComController() {
-        test();
+        //test();
     }
 
     @RequestMapping("/register")
     public boolean register(@RequestParam(value="email") String email) {
         User toReg = new User(email);
         model.register(toReg);
+        //@TODO Send tickle to users
         return true;
     }
 
@@ -29,8 +36,11 @@ public class ComController {
     public boolean newDebt(@RequestParam(value = "amount", defaultValue = "0") int amount, @RequestParam(value = "user1") String u1, @RequestParam(value = "user2") String u2) {
         User user1 = new User(u1);
         User user2 = new User(u2);
+        model.register(user1);
+        model.register(user2);
         Debt toAdd = new Debt(user1, user2, amount);
         model.addDebt(toAdd);
+        //@TODO Send tickle to users
         return true;
     }
 
@@ -46,9 +56,38 @@ public class ComController {
         User user2 = new User(u2);
         Debt d = new Debt(user1, user2, 0);
         model.removeDebt(d);
+        //@TODO Send tickle to users
         return true;
     }
 
+
+    private void tickle(User user){
+        String message = "Content-Type:application/json\n" +
+                "Authorization:key=AIzaSyB-1uEai2WiUapxCs2Q0GZYzPu7Udno5aA\n" +
+                "\n" +
+                "{\n" +
+                "  \"registration_ids\" : [\"APA91bHun4MxP5egoKMwt2KZFBaFUH-1RYqx...\"],\n" +
+                "  \"data\" : {\n" +
+                "    ...\n" +
+                "  },\n" +
+                "}";
+
+        try {
+            URL url = new URL("https://android.googleapis.com/gcm/send");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Accept", "application/xml");
+            conn.setDoInput(true);
+            OutputStream out = conn.getOutputStream();
+            ObjectOutputStream oout = new ObjectOutputStream(out);
+            oout.writeObject("tickletickle");
+            System.out.println(conn.getResponseCode());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 
     private void test() {
@@ -92,8 +131,5 @@ public class ComController {
                 }
             }
         }
-
-
     }
-
 }

@@ -15,11 +15,17 @@ public class DataModel {
     }
 
     public void addDebt(Debt debt){
-        this.debts.add(debt);
+        if(!debts.contains(debt)) {
+            this.debts.add(debt);
+        }else{
+            this.debts.get(this.debts.indexOf(debt)).combinewith(debt);
+        }
     }
 
     public void register(User user){
-        this.users.add(user);
+        if(!this.users.contains(user)){
+            this.users.add(user);
+        }
     }
 
     public void removeDebt(Debt debt){
