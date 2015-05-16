@@ -72,6 +72,12 @@ public class BackendConnetion {
         new BackendConnect().execute(param);
     }
 
+    public void remove(String from, String to) {
+        this.requestType = SERVER_REQUEST.REMOVE;
+        String param = "?user1="+from+"&user2";
+        new BackendConnect().execute(param);
+    }
+
 
     public BackendConnetion(SERVER_REQUEST requestType) {
         this.requestType = requestType;
