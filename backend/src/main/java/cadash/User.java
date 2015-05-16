@@ -6,9 +6,15 @@ import java.util.ArrayList;
  * Created by parke_000 on 2015-05-16.
  */
 public class User {
-    private final String uid;
+    private String uid;
+    private final String email;
 
-    public User(String uid) {
+    public User(String email) {
+        this.email = email;
+    }
+
+    public User(String email, String uid) {
+        this.email = email;
         this.uid = uid;
     }
 
