@@ -45,7 +45,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_object_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
         //--> HERE
@@ -59,9 +59,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.view.setText(contactList.get(position).getFirstName().toString());
-        holder.deptView.setText(contactList.get(position).getDebt().toString());
-        if(contactList.get(position).getDebt().getSum() >= 0.0){
+        holder.view.setText(contactList.get(position).getFirstName());
+        holder.deptView.setText(Integer.toString(contactList.get(position).getDebt()));
+        if(contactList.get(position).getDebt() >= 0.0){
             holder.indicator.setText("+");
         }else{
             holder.indicator.setText("-");
