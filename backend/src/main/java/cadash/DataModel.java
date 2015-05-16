@@ -22,11 +22,16 @@ public class DataModel {
         this.users.add(user);
     }
 
-    public ArrayList<Debt> getDebts() {
-        return debts;
+    public void removeDebt(Debt debt){
+        debts.remove(debt);
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<Debt> getDebts(User user) {
+        ArrayList<Debt> userDebts = new ArrayList<Debt>();
+        for(Debt d : debts){
+            if(d.getU1().equals(user) || d.getU2().equals(user)){
+                userDebts.add(d);
+            }
+        }
     }
 }
