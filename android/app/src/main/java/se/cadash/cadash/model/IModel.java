@@ -8,4 +8,8 @@ import java.util.List;
  */
 public interface IModel {
     List<Contact> getContacts();
+    void signIn();
+    void initialize();
+    void connect();
+    void disconnect();
 }
