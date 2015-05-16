@@ -15,4 +15,5 @@ public interface IModel {
     GoogleApiClient getGoogleApiClient();
     void setGoogleApiClient(GoogleApiClient client);
     String getUserEmail();
+    Contact getContact(String id);
 }

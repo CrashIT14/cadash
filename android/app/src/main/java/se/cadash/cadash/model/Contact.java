@@ -8,13 +8,14 @@ import android.media.Image;
 public class Contact {
     private String firstName;
     private String lastName;
-    private String email;
+    private String id;
     private int debt;
+    private String imageUrl = null;
 
-    public Contact(String firstName, String lastName, String email, int debt) {
+    public Contact(String firstName, String lastName, String id, int debt) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.id = id;
         this.debt = debt;
     }
 
@@ -26,11 +27,23 @@ public class Contact {
         return lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getId() {
+        return id;
     }
 
     public int getDebt() {
         return this.debt;
+    }
+
+    public void setDebt(int amount) {
+        this.debt = amount;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 }
